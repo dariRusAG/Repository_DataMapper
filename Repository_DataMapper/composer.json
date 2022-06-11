@@ -1,0 +1,10 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Dasha\\": "src/"
+        }
+    },
+    "require": {
+        "twig/twig": "^3.4"
+    }
+}
