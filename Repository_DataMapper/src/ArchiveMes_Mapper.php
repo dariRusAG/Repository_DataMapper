@@ -58,9 +58,15 @@ class ArchiveMes_Mapper
     }
 
     // Добавление записи
-    public function addById($getId_save, $data, $name, $message)
+    public function addById($records)
     {
-        $id = $getId_save;
+        foreach ($records as $element) {
+            $id = $element->getId();
+            $data = $element->getData();
+            $name = $element->getName();
+            $message = $element->getMessage();
+        }
+
         $sql = 'INSERT INTO messArchive_ActiveRecord values(:id, :data, :name, :message)';
         $stmt = $this->connection->prepare($sql);
 
@@ -75,10 +81,16 @@ class ArchiveMes_Mapper
     }
 
     // Обновление записи
-    public function updateById($getId_save, $data, $name, $message)
+    public function updateById($records)
     {
-        $id = $getId_save;
-        $sql = 'INSERT INTO messArchive_ActiveRecord values(:id, :data, :name, :message)';
+        foreach ($records as $element) {
+            $id = $element->getId();
+            $data = $element->getData();
+            $name = $element->getName();
+            $message = $element->getMessage();
+        }
+
+        $sql = 'UPDATE messArchive_ActiveRecord SET data_mes = :data, username = :name, messages = :message WHERE ID_mes = :id';
         $stmt = $this->connection->prepare($sql);
 
         $stmt->bindParam('id', $id);
@@ -102,8 +114,21 @@ class ArchiveMes_Mapper
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam('val', $val);
         $stmt->execute();
-        $table = $stmt->fetchAll();
-        
-        if(isset($table)) echo 'Записей нет';
+
+        $result = $stmt->fetchAll();
+
+        $i = 0;
+        foreach ($result as $row) $i = $i + 1;
+        if ($i == 0) echo 'Записей нет</p>';
+        else {
+            foreach ($result as $row) {
+                $id = $row["ID_mes"];
+                $data = $row["data_mes"];
+                $login = $row["username"];
+                $message = $row["messages"];
+
+                echo "<p>$id $data $login: $message</p>";
+            }
+        }
     }
 }

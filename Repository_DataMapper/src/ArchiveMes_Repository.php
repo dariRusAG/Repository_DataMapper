@@ -75,22 +75,21 @@ class ArchiveMes_Repository
                 foreach ($this->records as $recordsMapper) {
                     if ($recordsMapper->getId() == $ID_save)
                     {
-                        echo "Такая запись уже есть. Поменяйте ID.";
-                        break;
+                        //echo "Такая запись уже есть. Поменяйте ID.";
+                        exit("Такая запись уже есть. Поменяйте ID.");
                     }
                 }
-                $this->recordsMapper->addById($ID_save, $date_save, $name_save, $message_save);
+                $this->recordsMapper->addById($records);
                 break;
 
             case 'updateRecords':
                 foreach ($this->records as $recordsMapper) {
                     if ($recordsMapper->getId() == $ID_save) {
-                        $this->recordsMapper->updateById($ID_save, $date_save, $name_save, $message_save);
+                        $this->recordsMapper->updateById($records);
                         break;
                     }
                 }
-                echo "Такой записи нет. Поменяйте ID.";
-                break;
+                exit("Такой записи нет. Поменяйте ID.");
         }
     }
 
