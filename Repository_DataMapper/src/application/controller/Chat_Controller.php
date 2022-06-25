@@ -23,11 +23,6 @@ class Chat_Controller
         echo $this->twig->render('ID.html.twig', ['name' => $name, 'placeholder' => $placeholder, 'type' => $type, 'text' => $text]);
     }
 
-    public function __invokeDelete()
-    {
-        echo $this->twig->render('deleteR.html.twig');
-    }
-
     public function __invokeFieldValue()
     {
         echo $this->twig->render('fieldV.html.twig');
